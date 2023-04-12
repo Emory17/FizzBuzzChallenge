@@ -125,6 +125,11 @@ function fizzBuzz() {
     startNumber = parseInt(startValue);
     endNumber = parseInt(endValue);
 
+    if (!Number.isInteger(startNumber) || !Number.isInteger(endNumber)) {
+        table.innerHTML = "&lt;tr>&lt;td>Error: Please input valid numbers&lt;/td>&lt;/tr>";
+        return;
+    }
+
     table.innerHTML = "";
     
     if (startNumber <= endNumber) {
