@@ -102,25 +102,57 @@
             <div class="col-12 col-lg-8">
                 <pre class="line-numbers">
                     <code class="language-js">
-function displayMessage() {
-    let msg = document.getElementById("message").value;
-    //alert(msg);
+function fizzBuzz() {
+    let startValue = document.getElementById("startValue").value;
+    let endValue = document.getElementById("endValue").value;
+    let table = document.getElementById("results");
 
-    Swal.fire(
-        {
-            backdrop: false,
-            title: 'APP NAME',
-            text: msg
+    if (startValue == "" || endValue == "") {
+        table.innerHTML = "<tr><td>Error: Missing Value</td></tr>";
+        return;
+    }
+
+    startNumber = parseInt(startValue);
+    endNumber = parseInt(endValue);
+
+    table.innerHTML = "";
+    
+    if (startNumber <= endNumber) {
+        for (i = startNumber; i <= endNumber; i++) {
+            table.innerHTML += "<tr><td>" + fizzCheck(i) + "</td></tr>";
         }
-    );
+    } else {
+        for (i = startNumber; i >= endNumber; i--) {
+            table.innerHTML += "<tr><td>" + fizzCheck(i) + "</td></tr>";
+        }
+    }
+}
+
+function fizzCheck(num){
+    var unfizzed = true;
+    var out = "";
+    if(num%3 == 0){
+        out += "Fizz";
+        unfizzed = false;
+    }
+    if(num%5 == 0){
+        out += "Buzz";
+        unfizzed = false;
+    }
+    if(unfizzed){
+        out += num;
+    }
+    return out;
 }
                     </code>
                 </pre>
             </div>
             <div class="col-12 col-lg-4">
-                <p>The code is structured in one function</p>
-                <h5>displayMessage</h5>
-                <p>Prints out the message</p>
+                <p>The code is structured in two functions</p>
+                <h5>fizzBuzz</h5>
+                <p>Goes through each number and displays them</p>
+                <h5>fizzCheck</h5>
+                <p>Checks whether a number should display as Fizz, Buzz, FizzBuzz, or itself</p>
             </div>
         </div>
     </main>
