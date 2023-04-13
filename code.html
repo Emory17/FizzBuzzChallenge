@@ -151,24 +151,10 @@ function getValues(){
 
 function generateFizzBuzz(fizzNum, buzzNum, stopNum) {
     let fbarr = [];
-    for (i = 0; i < stopNum; i++) {
-        var unfizzed = true;
-        var num = i+1;
-        var val = "";
-        if (num % fizzNum == 0) {
-            val += "Fizz";
-            unfizzed = false;
-        }
-        if (num % buzzNum == 0) {
-            val += "Buzz";
-            unfizzed = false;
-        }
-        if (unfizzed) {
-            val += num;
-        }
+    for (i = 1; i <= stopNum; i++) {
+        let val = i%(fizzNum*buzzNum) == 0 ? "FizzBuzz" : i%fizzNum == 0 ? "Fizz" : i%buzzNum == 0 ? "Buzz" : "" + i;
         fbarr.push(val);
     }
-
     return fbarr;
 }
 
