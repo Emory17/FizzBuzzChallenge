@@ -1,5 +1,4 @@
 function getValues(){
-    console.log("~");
     let fizzVal= document.getElementById("fizznum").value;
     let buzzVal = document.getElementById("buzznum").value;
     let stopVal = document.getElementById("stopnum").value;
@@ -92,51 +91,4 @@ function displayFizzBuzz(fbarr){
     out += "</tr>"
 
     table.innerHTML = out;
-}
-
-function fizzBuzz() {
-    
-    
-
-    if (startValue == "" || endValue == "") {
-        table.innerHTML = "<tr><td>Error: Missing Value</td></tr>";
-        return;
-    }
-
-    startNumber = parseInt(startValue);
-    endNumber = parseInt(endValue);
-
-    if (!Number.isInteger(startNumber) || !Number.isInteger(endNumber)) {
-        table.innerHTML = "<tr><td>Error: Please input valid numbers</td></tr>";
-        return;
-    }
-
-    table.innerHTML = "";
-    
-    if (startNumber <= endNumber) {
-        for (i = startNumber; i <= endNumber; i++) {
-            table.innerHTML += "<tr><td>" + fizzCheck(i) + "</td></tr>";
-        }
-    } else {
-        for (i = startNumber; i >= endNumber; i--) {
-            table.innerHTML += "<tr><td>" + fizzCheck(i) + "</td></tr>";
-        }
-    }
-}
-
-function fizzCheck(num){
-    var unfizzed = true;
-    var out = "";
-    if(num%3 == 0){
-        out += "Fizz";
-        unfizzed = false;
-    }
-    if(num%5 == 0){
-        out += "Buzz";
-        unfizzed = false;
-    }
-    if(unfizzed){
-        out += num;
-    }
-    return out;
 }

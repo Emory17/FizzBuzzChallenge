@@ -112,64 +112,115 @@
                 <div class="col-12 col-lg-8">
                     <pre class="line-numbers">
                     <code class="language-js">
-function fizzBuzz() {
-    let startValue = document.getElementById("startValue").value;
-    let endValue = document.getElementById("endValue").value;
-    let table = document.getElementById("results");
+function getValues(){
+    let fizzVal= document.getElementById("fizznum").value;
+    let buzzVal = document.getElementById("buzznum").value;
+    let stopVal = document.getElementById("stopnum").value;
 
-    if (startValue == "" || endValue == "") {
-        table.innerHTML = "&lt;tr>&lt;td>Error: Missing Value&lt;/td>&lt;/tr>";
+    fizzNum = parseInt(fizzVal);
+    buzzNum = parseInt(buzzVal);
+    stopNum = parseInt(stopVal);
+
+    if(!Number.isInteger(fizzNum) || !Number.isInteger(buzzNum) || !Number.isInteger(stopNum) || fizzNum < 1 || buzzNum < 1 || stopNum < 1){
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Please enter positive integers for all values.",
+            backdrop: false
+        });
         return;
     }
 
-    startNumber = parseInt(startValue);
-    endNumber = parseInt(endValue);
-
-    if (!Number.isInteger(startNumber) || !Number.isInteger(endNumber)) {
-        table.innerHTML = "&lt;tr>&lt;td>Error: Please input valid numbers&lt;/td>&lt;/tr>";
+    if(stopNum > 5000){
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Please enter a Stop value below 5000",
+            backdrop: false,
+        });
         return;
     }
 
-    table.innerHTML = "";
-    
-    if (startNumber <= endNumber) {
-        for (i = startNumber; i <= endNumber; i++) {
-            table.innerHTML += "&lt;tr>&lt;td>" + fizzCheck(i) + "&lt;/td>&lt;/tr>";
-        }
-    } else {
-        for (i = startNumber; i >= endNumber; i--) {
-            table.innerHTML += "&lt;tr>&lt;td>" + fizzCheck(i) + "&lt;/td>&lt;/tr>";
-        }
-    }
+    document.getElementById("fizznum").value = fizzNum;
+    document.getElementById("buzznum").value = buzzNum;
+    document.getElementById("stopnum").value = stopNum;
+
+    let fbarr = generateFizzBuzz(fizzNum, buzzNum, stopNum);
+    displayFizzBuzz(fbarr);
 }
 
-function fizzCheck(num){
-    var unfizzed = true;
-    var out = "";
-    if(num%3 == 0){
-        out += "Fizz";
-        unfizzed = false;
+function generateFizzBuzz(fizzNum, buzzNum, stopNum) {
+    let fbarr = [];
+    for (i = 0; i < stopNum; i++) {
+        var unfizzed = true;
+        var num = i+1;
+        var val = "";
+        if (num % fizzNum == 0) {
+            val += "Fizz";
+            unfizzed = false;
+        }
+        if (num % buzzNum == 0) {
+            val += "Buzz";
+            unfizzed = false;
+        }
+        if (unfizzed) {
+            val += num;
+        }
+        fbarr.push(val);
     }
-    if(num%5 == 0){
-        out += "Buzz";
-        unfizzed = false;
+
+    return fbarr;
+}
+
+function displayFizzBuzz(fbarr){
+    let table = document.getElementById("results");
+    let out = "&lt;tr>";
+    
+    for(i = 0; i < fbarr.length; i++){
+        let val = fbarr[i]
+        if(val == "Fizz"){
+            out += "&lt;td class='table-secondary'>Fizz&lt;/td>";
+        }
+        else if(val == "Buzz"){
+            out += "&lt;td class='table-dark'>Buzz&lt;/td>";
+        }
+        else if(val == "FizzBuzz"){
+            out += "&lt;td class='table-info'>FizzBuzz&lt;/td>";
+        }
+        else{
+            out += "&lt;td class='table-light'>" + val + "&lt;/td>";
+        }
+
+        if(i%5 == 4){
+            out += "&lt;/tr>&lt;tr>"
+        }
     }
-    if(unfizzed){
-        out += num;
+
+    var tcount = fbarr.length;
+    while(tcount%5 != 0){
+        out += "&lt;td class='table-light'>&lt;/td>";
+        tcount++;
     }
-    return out;
+
+    out += "&lt;/tr>"
+
+    table.innerHTML = out;
 }
                     </code>
                 </pre>
                 </div>
                 <div class="col-12 col-lg-4">
-                    <p>The code is structured in two functions</p>
-                    <h5>fizzBuzz</h5>
-                    <p>Goes through each number and displays them</p>
-                    <h5>fizzCheck</h5>
+                    <p>The code is structured in three functions</p>
+                    <h5>getValues</h5>
+                    <p>Takes the user input for Fizz value, Buzz value, and Stop value and verifies them. Called from the Go button</p>
+                    <h5>generateFizzBuzz</h5>
                     <p>
                         Checks whether a number should display as Fizz, Buzz,
-                        FizzBuzz, or itself
+                        FizzBuzz, or itself. Generates an array with all appropriate values. Called from getValues
+                    </p>
+                    <h5>displayFizzBuzz</h5>
+                    <p>
+                        Displays the values from generateFizzBuzz in a table on the page. Called from getValues
                     </p>
                 </div>
             </div>
