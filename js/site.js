@@ -61,7 +61,6 @@ function generateFizzBuzz(fbarr, index, fizzNum, buzzNum, stopNum) {
 
 function displayFizzBuzz(out, index, fbarr) {
     if (index >= fbarr.length) {
-        console.log(index);
         if (index % 5 != 0) {
             out += "<td class='table-light'></td>";
             displayFizzBuzz(out, index + 1, fbarr);
