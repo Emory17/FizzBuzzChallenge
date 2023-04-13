@@ -1,5 +1,5 @@
-function getValues(){
-    let fizzVal= document.getElementById("fizznum").value;
+function getValues() {
+    let fizzVal = document.getElementById("fizznum").value;
     let buzzVal = document.getElementById("buzznum").value;
     let stopVal = document.getElementById("stopnum").value;
 
@@ -7,21 +7,28 @@ function getValues(){
     buzzNum = parseInt(buzzVal);
     stopNum = parseInt(stopVal);
 
-    if(!Number.isInteger(fizzNum) || !Number.isInteger(buzzNum) || !Number.isInteger(stopNum) || fizzNum < 1 || buzzNum < 1 || stopNum < 1){
+    if (
+        !Number.isInteger(fizzNum) ||
+        !Number.isInteger(buzzNum) ||
+        !Number.isInteger(stopNum) ||
+        fizzNum < 1 ||
+        buzzNum < 1 ||
+        stopNum < 1
+    ) {
         Swal.fire({
             icon: "error",
             title: "Error",
             text: "Please enter positive integers for all values.",
-            backdrop: false
+            backdrop: false,
         });
         return;
     }
 
-    if(stopNum > 5000){
+    if (stopNum > 5000) {
         Swal.fire({
             icon: "error",
             title: "Error",
-            text: "Please enter a Stop value below 5000",
+            text: "Please enter a Stop Value below 5000",
             backdrop: false,
         });
         return;
@@ -31,50 +38,50 @@ function getValues(){
     document.getElementById("buzznum").value = buzzNum;
     document.getElementById("stopnum").value = stopNum;
 
-    let fbarr = generateFizzBuzz(fizzNum, buzzNum, stopNum);
-    displayFizzBuzz(fbarr);
-}
-
-function generateFizzBuzz(fizzNum, buzzNum, stopNum) {
     let fbarr = [];
-    for (i = 1; i <= stopNum; i++) {
-        let val = i%(fizzNum*buzzNum) == 0 ? "FizzBuzz" : i%fizzNum == 0 ? "Fizz" : i%buzzNum == 0 ? "Buzz" : "" + i;
-        fbarr.push(val);
-    }
-    return fbarr;
+    fbarr = generateFizzBuzz(fbarr, 1, fizzNum, buzzNum, stopNum);
+    displayFizzBuzz("<tr>", 0, fbarr);
 }
 
-function displayFizzBuzz(fbarr){
-    let table = document.getElementById("results");
-    let out = "<tr>";
-    
-    for(i = 0; i < fbarr.length; i++){
-        let val = fbarr[i]
-        if(val == "Fizz"){
-            out += "<td class='table-secondary'>Fizz</td>";
-        }
-        else if(val == "Buzz"){
-            out += "<td class='table-dark'>Buzz</td>";
-        }
-        else if(val == "FizzBuzz"){
-            out += "<td class='table-info'>FizzBuzz</td>";
-        }
-        else{
-            out += "<td class='table-light'>" + val + "</td>";
-        }
+function generateFizzBuzz(fbarr, index, fizzNum, buzzNum, stopNum) {
+    if (index > stopNum) {
+        return fbarr;
+    }
+    let val =
+        index % (fizzNum * buzzNum) == 0
+            ? "FizzBuzz"
+            : index % fizzNum == 0
+            ? "Fizz"
+            : index % buzzNum == 0
+            ? "Buzz"
+            : "" + index;
+    fbarr.push(val);
+    return generateFizzBuzz(fbarr, index + 1, fizzNum, buzzNum, stopNum);
+}
 
-        if(i%5 == 4){
-            out += "</tr><tr>"
+function displayFizzBuzz(out, index, fbarr) {
+    if (index >= fbarr.length) {
+        console.log(index);
+        if (index % 5 != 0) {
+            out += "<td class='table-light'></td>";
+            displayFizzBuzz(out, index + 1, fbarr);
+            return;
         }
+        document.getElementById("results").innerHTML = out + "</tr>";
+        return;
     }
 
-    var tcount = fbarr.length;
-    while(tcount%5 != 0){
-        out += "<td class='table-light'></td>";
-        tcount++;
+    let val = fbarr[index];
+    out +=
+        val == "Fizz"
+            ? "<td class='table-secondary'>Fizz</td>"
+            : val == "Buzz"
+            ? "<td class='table-dark'>Buzz</td>"
+            : val == "FizzBuzz"
+            ? "<td class='table-info'>FizzBuzz</td>"
+            : "<td class='table-light'>" + val + "</td>";
+    if (index % 5 == 4) {
+        out += "</tr><tr>";
     }
-
-    out += "</tr>"
-
-    table.innerHTML = out;
+    displayFizzBuzz(out, index + 1, fbarr);
 }
