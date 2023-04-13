@@ -18,7 +18,7 @@ function getValues() {
         Swal.fire({
             icon: "error",
             title: "Error",
-            text: "Please enter positive integers for all values.",
+            text: "Please enter positive integers for all values",
             backdrop: false,
         });
         return;
