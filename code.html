@@ -162,13 +162,13 @@ function generateFizzBuzz(fbarr, index, fizzNum, buzzNum, stopNum) {
         return fbarr;
     }
     let val =
-        index % (fizzNum * buzzNum) == 0
-            ? "FizzBuzz"
-            : index % fizzNum == 0
-            ? "Fizz"
+        index % fizzNum == 0
+            ? index % buzzNum == 0
+                ? "FizzBuzz"
+                : "Fizz"
             : index % buzzNum == 0
-            ? "Buzz"
-            : "" + index;
+                ? "Buzz"
+                : "" + index;
     fbarr.push(val);
     return generateFizzBuzz(fbarr, index + 1, fizzNum, buzzNum, stopNum);
 }
