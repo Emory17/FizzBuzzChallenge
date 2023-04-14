@@ -47,6 +47,12 @@ function generateFizzBuzz(fbarr, index, fizzNum, buzzNum, stopNum) {
     if (index > stopNum) {
         return fbarr;
     }
+
+    let val =
+        ((index % fizzNum == 0 ? "Fizz" : "") +
+            (index % buzzNum == 0 ? "Buzz" : "") || index);
+
+    /*
     let val =
         index % fizzNum == 0
             ? index % buzzNum == 0
@@ -54,7 +60,9 @@ function generateFizzBuzz(fbarr, index, fizzNum, buzzNum, stopNum) {
                 : "Fizz"
             : index % buzzNum == 0
                 ? "Buzz"
-                : "" + index;
+                : index;
+    */
+
     fbarr.push(val);
     return generateFizzBuzz(fbarr, index + 1, fizzNum, buzzNum, stopNum);
 }
